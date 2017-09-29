@@ -21,9 +21,6 @@ for dirs, subdirs, files in os.walk("."):
 			csv_f = csv.reader(f)
 			next(csv_f, None) #skip header
 			for row in csv_f:
-				username = str(row[0])
-				if username == "TampaElectric":
-					continue
 				post_date = str((row[1]).partition(" ")[0])
 				if (post_date not in date_dict): 
 					date_dict[post_date] = {}
