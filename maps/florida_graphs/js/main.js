@@ -83,9 +83,16 @@ $(document).ready(function(){
 	  }
 	});
 	
+	var utility_ = dateDim.group().reduceSum(function(d) {
+	  if (d.ketword == 'utility') {
+		return d.posts;
+	  } else {
+		return 0;
+	  }
+	});
 	
-	var community_ = dateDim.group().reduceSum(function(d) {
-	  if (d.keyword == 'community') {
+	var flood_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'flood') {
 		return d.posts;
 	  } else {
 		return 0;
@@ -93,14 +100,22 @@ $(document).ready(function(){
 	});
 	
 	
-	var small_ = dateDim.group().reduceSum(function(d) {
-	  if (d.keyword == 'small') {
+	var storm_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'storm') {
 		return d.posts;
 	  } else {
 		return 0;
 	  }
 	});
 	
+	var disaster_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'disaster') {
+		return d.posts;
+	  } else {
+		return 0;
+	  }
+	});
+
 	var climate_ = dateDim.group().reduceSum(function(d) {
 	  if (d.keyword == 'climate') {
 		return d.posts;
@@ -109,8 +124,8 @@ $(document).ready(function(){
 	  }
 	});
 	
-	var breakout_ = dateDim.group().reduceSum(function(d) {
-	  if (d.keyword == 'breakout') {
+	var monopoly_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'monopoly') {
 		return d.posts;
 	  } else {
 		return 0;
@@ -125,8 +140,8 @@ $(document).ready(function(){
 	  }
 	});
 	
-	var heat_ = dateDim.group().reduceSum(function(d) {
-	  if (d.keyword == 'heat') {
+	var hurricane_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'hurricane') {
 		return d.posts;
 	  } else {
 		return 0;
@@ -158,6 +173,15 @@ $(document).ready(function(){
 	});
 	
 
+	var inequality_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'inequality') {
+		return d.posts;
+	  } else {
+		return 0;
+	  }
+	});
+
+
 	hitslineChart
 	  .width(1000).height(400)
 	  .x(d3.time.scale().domain([minDate, maxDate]))
@@ -185,14 +209,20 @@ $(document).ready(function(){
 		.elasticY(true),
 	dc.lineChart(hitslineChart)
 		.dimension(dateDim)
+		.group(disaster_, "Disaster")
+		.colors("#18bec6")
+		.elasticX(true)
+		.elasticY(true),
+	dc.lineChart(hitslineChart)
+		.dimension(dateDim)
 		.group(climate_, "Climate Change")
 		.colors("#ee7849")
 		.elasticX(true)
 		.elasticY(true),
 	dc.lineChart(hitslineChart)
 		.dimension(dateDim)
-		.group(breakout_, "Breakout")
-		.colors("#e7d338")
+		.group(inequality_, "Inequality")
+		.colors("#138b36")
 		.elasticX(true)
 		.elasticY(true),
 	dc.lineChart(hitslineChart)
@@ -203,7 +233,7 @@ $(document).ready(function(){
 		.elasticY(true),
 	dc.lineChart(hitslineChart)
 		.dimension(dateDim)
-		.group(heat_, "Heat")
+		.group(utility_, "Utility Company")
 		.colors("#2abb10")
 		.elasticX(true)
 		.elasticY(true),
@@ -215,13 +245,37 @@ $(document).ready(function(){
 		.elasticY(true),
 	dc.lineChart(hitslineChart)
 		.dimension(dateDim)
-		.group(trust_, "Trust")
-		.colors("#123fd1")
+		.group(hurricane_, "Hurricane")
+		.colors("#8d1bbd")
 		.elasticX(true)
 		.elasticY(true),
 	dc.lineChart(hitslineChart)
 		.dimension(dateDim)
-		.group(poor_, "Low Income")
+		.group(monopoly_, "Monopoly")
+		.colors("#3a1aa2")
+		.elasticX(true)
+		.elasticY(true),
+	dc.lineChart(hitslineChart)
+		.dimension(dateDim)
+		.group(storm_, "Storm")
+		.colors("#b6175b")
+		.elasticX(true)
+		.elasticY(true),
+	dc.lineChart(hitslineChart)
+		.dimension(dateDim)
+		.group(flood_, "Flood/Rain")
+		.colors("#e5b500")
+		.elasticX(true)
+		.elasticY(true),
+	dc.lineChart(hitslineChart)
+		.dimension(dateDim)
+		.group(trust_, "Trust")
+		.colors("#6d6bec")
+		.elasticX(true)
+		.elasticY(true),
+	dc.lineChart(hitslineChart)
+		.dimension(dateDim)
+		.group(poor_, "Low Income/Poor")
 		.colors("#7d50e6")
 		.elasticX(true)
 		.elasticY(true)
