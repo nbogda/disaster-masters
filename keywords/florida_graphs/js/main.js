@@ -173,13 +173,39 @@ $(document).ready(function(){
 	});
 	
 
-	var inequality_ = dateDim.group().reduceSum(function(d) {
-	  if (d.keyword == 'inequality') {
+	var government_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'government') {
 		return d.posts;
 	  } else {
 		return 0;
 	  }
 	});
+
+	var damage_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'damage') {
+		return d.posts;
+	  } else {
+		return 0;
+	  }
+	});
+
+	var home_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'home') {
+		return d.posts;
+	  } else {
+		return 0;
+	  }
+	});
+
+
+/*	var power_ = dateDim.group().reduceSum(function(d) {
+	  if (d.keyword == 'power') {
+		return d.posts;
+	  } else {
+		return 0;
+	  }
+	});*/
+
 
 
 	hitslineChart
@@ -194,7 +220,7 @@ $(document).ready(function(){
 		top: 10,
 		left: 30,
 		right: 60,
-		bottom: 50
+		bottom: 60
 	  })
 	  .renderlet(function(chart) {
 		chart.selectAll("g.x text").attr('dx', '-30').attr('dy', '-7').attr('transform', "rotate(-90)");
@@ -221,7 +247,7 @@ $(document).ready(function(){
 		.elasticY(true),
 	dc.lineChart(hitslineChart)
 		.dimension(dateDim)
-		.group(inequality_, "Inequality")
+		.group(government_, "Government")
 		.colors("#138b36")
 		.elasticX(true)
 		.elasticY(true),
@@ -278,7 +304,25 @@ $(document).ready(function(){
 		.group(poor_, "Low Income/Poor")
 		.colors("#7d50e6")
 		.elasticX(true)
+		.elasticY(true),
+	dc.lineChart(hitslineChart)
+		.dimension(dateDim)
+		.group(damage_, "Damage")
+		.colors("#15df1f")
+		.elasticX(true)
+		.elasticY(true),
+	dc.lineChart(hitslineChart)
+		.dimension(dateDim)
+		.group(home_, "Houses/Homes")
+		.colors("#df15a4")
+		.elasticX(true)
 		.elasticY(true)
+/*	dc.lineChart(hitslineChart)
+		.dimension(dateDim)
+		.group(power_, "Power/Power Grid")
+		.colors("#07af34")
+		.elasticX(true)
+		.elasticY(true)*/
 		]);
 
 /******************************************************************************/

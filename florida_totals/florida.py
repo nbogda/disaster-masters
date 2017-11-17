@@ -10,6 +10,7 @@ from textblob import TextBlob
 
 
 date_dict = {}
+poop_dict = {}
 
 
 #parse files
@@ -23,10 +24,11 @@ for dirs, subdirs, files in os.walk("../data/florida"):
 			next(csv_f, None) #skip header
 			for row in csv_f:
 				post_date = str((row[1]).partition(" ")[0])
-				if (post_date not in date_dict): 
+				if (post_date not in date_dict) and (post_date not in poop_dict):
 
 					date_dict[post_date] = {}
 
+					poop_dict[post_date] = 0
 					date_dict[post_date]["duke"] = 0 
 					date_dict[post_date]["gru"] = 0
 					date_dict[post_date]["keysenergy"] = 0
@@ -41,6 +43,9 @@ for dirs, subdirs, files in os.walk("../data/florida"):
 				county = str(row[0]) 
 
 				try:
+
+					if "2017-09-12" in post_date:
+						poop_dict[post_date] += 1
 					if "DukeEnergy" in county:
 						date_dict[post_date]["duke"] += 1.0 
 					if "GRU4U" in county:
@@ -67,6 +72,7 @@ for dirs, subdirs, files in os.walk("../data/florida"):
 			f.close()
 
 
+print poop_dict["2017-09-12"]
 
 #put in JSON
 fp = open("florida_totals.json", "w") 
